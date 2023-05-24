@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 2ce3c8cceccbbea44af91bf2c794d839
+  m_SerializeEntries:
+  - m_GUID: 6dc42ad68cc8044df837a14ff82a63dc
+    m_Address: Assets/Prefabs/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+  - m_GUID: a38f7b5b103d143b68ac7b651728e3ed
+    m_Address: Assets/Character/Models/Player.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+  - m_GUID: 18b4bd5ae7f5f3c41b71e179399cc581
+    m_Address: Assets/file_example_MP3_5MG.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+  - m_GUID: 99c9720ab356a0642a771bea13969a05
+    m_Address: LevelScene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5432fee0815647f4b93b100d0999bab2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1d00bc93d603d8a4581725f36f339419, type: 2}
+    - {fileID: 11400000, guid: f47171cbe0e62494c96d777acec0a1a6, type: 2}
