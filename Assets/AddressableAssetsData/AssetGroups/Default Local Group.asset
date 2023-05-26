@@ -27,13 +27,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
-  - m_GUID: 18b4bd5ae7f5f3c41b71e179399cc581
-    m_Address: Assets/file_example_MP3_5MG.mp3
+  - m_GUID: 99c9720ab356a0642a771bea13969a05
+    m_Address: LevelScene
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
-  - m_GUID: 99c9720ab356a0642a771bea13969a05
-    m_Address: LevelScene
+  - m_GUID: f99a9c480965c5649a717d65d3cc18d0
+    m_Address: Assets/Prefabs/Plane.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
