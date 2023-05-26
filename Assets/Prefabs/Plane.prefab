@@ -109,5 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5eb79d69f76a2548a2e54e7cb19ff31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startPointPosition: {x: 0, y: 0, z: -5}
   _endPointPosition: {x: 0, y: 0, z: 5}
-  _endPointAdditionalRotation: {x: 0, y: 0, z: 0}
+  _endPointAdditionalRotation: {x: 0, y: 45, z: 0}

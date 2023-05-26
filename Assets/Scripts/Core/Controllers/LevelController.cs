@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Core.Model;
+using Game.Core.Road;
 using Game.Helpers;
 using Game.System;
 using UnityEngine;
@@ -52,32 +53,29 @@ namespace Game.Core.Controllers
 
         private void SpawnLevel()
         {
+            var root = new GameObject();
+            root.name = "Road root";
+            root.transform.position = Vector3.zero;
+
             var assetsController = GetController<AssetsController>();
+            BaseRoadObject previousBlock = null;
             foreach (var roadBlockType in _levelModel.Config.RoadSpawnOrder)
             {
                 if (assetsController.TryGetPreloadedRoadPrefabByType(roadBlockType, out var prefab))
                 {
-                    Object.Instantiate(prefab);
+                    var roadBlock = Object.Instantiate(prefab, root.transform);
+                    if (previousBlock != null)
+                    {
+                        roadBlock.transform.rotation = previousBlock.transform.rotation * previousBlock.GetEndPointAdditionalRotation();
+
+                        roadBlock.transform.position = previousBlock.GetEndPointWorldSpacePosition() - 
+                                                       roadBlock.transform.rotation * roadBlock.GetStartPointLocalPosition();
+                    }
+
+                    previousBlock = roadBlock;
                 }
             }
         }
-
-        /*
-        private async Task<List<T>> LoadRoadPrefabsFromAddressables<T>(List<AssetReference> assets)
-        {
-            var roadBlocks = new List<T>();
-            // You can add a typeof() at the end to filter on type as well. Take not of the merge mode here
-            AsyncOperationHandle<IList<IResourceLocation>> locationsHandle = Addressables.LoadResourceLocationsAsync(assets, Addressables.MergeMode.Union);
-            await locationsHandle.Task;
-
-            var handle = Addressables.LoadAssetsAsync<GameObject>(locationsHandle.Result, x =>
-            {
-                roadBlocks.Add(x.GetComponent<T>());
-            });
-            handle.AddTo(_loadedResources);
-            await handle.Task;
-            return roadBlocks;
-        }*/
 
         public override void Dispose()
         {
