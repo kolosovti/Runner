@@ -29,12 +29,17 @@ namespace Game.Core.Road
 
         protected virtual void OnDrawGizmos()
         {
-            Gizmos.color = Color.red;
-            var startPoint = transform.position + transform.rotation * ( _endPointPosition);
+            //Draw end point
+            Gizmos.color = Color.blue;
+            var startPoint = transform.position + transform.rotation * (_startPointPosition);
             Gizmos.DrawSphere(startPoint, 0.04f);
 
-            var endPoint = transform.rotation * Quaternion.Euler(_endPointAdditionalRotation) * Vector3.forward;
-            Gizmos.DrawLine(startPoint, startPoint + endPoint);
+            //Draw end point and road block exit direction
+            Gizmos.color = Color.red;
+            var endPointFrom = transform.position + transform.rotation * ( _endPointPosition);
+            var endPointTo = transform.rotation * Quaternion.Euler(_endPointAdditionalRotation) * Vector3.forward;
+            Gizmos.DrawSphere(endPointFrom, 0.06f);
+            Gizmos.DrawLine(endPointFrom, endPointFrom + endPointTo);
         }
     }
 }

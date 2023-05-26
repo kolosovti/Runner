@@ -110,5 +110,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPointPosition: {x: 0, y: 0, z: -5}
-  _endPointPosition: {x: 0, y: 0, z: 5}
-  _endPointAdditionalRotation: {x: 0, y: 45, z: 0}
+  _endPointPosition: {x: 0.7, y: 0, z: 4.5}
+  _endPointAdditionalRotation: {x: 0, y: 90, z: 0}

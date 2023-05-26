@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
   _sceneName: LevelScene
-  _roadSpawnOrder: 00000000000000000000000000000000
+  _roadSpawnOrder: 000000000000000000000000
