@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Core
 {
-    public class GameEntryPoint : MonoBehaviour
+    public class GameEntryPoint : Singleton<GameEntryPoint>
     {
         private CoreContext _coreContext;
 

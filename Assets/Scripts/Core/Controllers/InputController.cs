@@ -15,7 +15,7 @@ namespace Game.Core.Controllers
         public override void Tick()
         {
             base.Tick();
-
+            
             if (Input.GetMouseButtonDown(0))
             {
                 _inputModel.InvokeJump();

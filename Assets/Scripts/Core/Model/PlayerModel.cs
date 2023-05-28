@@ -15,9 +15,9 @@ namespace Game.Core.Model
     public class PlayerModel : IPlayerModel
     {
         public Player Player;
-        public ReactiveProperty<int> Health;
-        public ReactiveProperty<int> JumpsCount;
-        public ReactiveProperty<bool> IsGrounded;
+        public ReactiveProperty<int> Health = new ReactiveProperty<int>();
+        public ReactiveProperty<int> JumpsCount = new ReactiveProperty<int>();
+        public ReactiveProperty<bool> IsGrounded = new ReactiveProperty<bool>();
 
         Player IPlayerModel.Player => Player;
         IObservable<int> IPlayerModel.Health => Health;
