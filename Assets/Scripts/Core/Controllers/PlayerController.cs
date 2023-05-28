@@ -9,13 +9,24 @@ namespace Game.Core.Controllers
     {
         private readonly ILevelLoadingModel _levelLoadingModel;
         private readonly PlayerModel _playerModel;
+        private readonly IInputModel _inputModel;
 
-        public PlayerController(ILevelLoadingModel levelLoadingModel, PlayerModel playerModel, ContextManager contextManager) : base(contextManager)
+        private Player _player;
+
+        public PlayerController(ILevelLoadingModel levelLoadingModel, IInputModel inputModel,
+            PlayerModel playerModel, ContextManager contextManager) : base(contextManager)
         {
             _levelLoadingModel = levelLoadingModel;
             _playerModel = playerModel;
+            _inputModel = inputModel;
+        }
+
+        public override void ConnectController()
+        {
+            base.ConnectController();
 
             _levelLoadingModel.LevelLoaded.First().Subscribe(x => OnSceneLoaded()).AddTo(_subscriptions);
+            _inputModel.Jump.Subscribe(x => OnJump()).AddTo(_subscriptions);
         }
 
         private void OnSceneLoaded()
@@ -35,6 +46,15 @@ namespace Game.Core.Controllers
             var playerPrefab = assetsController.GetPlayerPrefab();
             var player = Object.Instantiate(playerPrefab);
             _playerModel.SetPlayer(player.GetComponent<Player>());
+        }
+
+        private void OnJump()
+        {
+            if (_playerModel.JumpsCount.Value < 1)
+            {
+                _playerModel.Player.Jump();
+                _playerModel.OnJump();
+            }
         }
     }
 }

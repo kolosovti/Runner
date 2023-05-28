@@ -15,8 +15,6 @@ namespace Game.Core.Controllers
     {
         private readonly ILevelLoadingModel _levelLoadingModel;
         private readonly ILevelModel _levelModel;
-        
-        private List<AsyncOperationHandle> _loadedResources = new List<AsyncOperationHandle>();
 
         public LevelController(ILevelLoadingModel levelLoadingModel, ILevelModel levelModel, ContextManager contextManager) 
             : base(contextManager)
@@ -67,15 +65,6 @@ namespace Game.Core.Controllers
 
                     previousBlock = roadBlock;
                 }
-            }
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            foreach (var asyncOperationHandle in _loadedResources)
-            {
-                Addressables.Release(asyncOperationHandle);
             }
         }
     }

@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UniRx;
-using UnityEngine;
 
 namespace Game.System
 {
-    public abstract class ContextManager : MonoBehaviour
+    public abstract class ContextManager : IDisposable
     {
         protected readonly Dictionary<Type, BaseContextController> _controllers =
             new Dictionary<Type, BaseContextController>();
@@ -23,6 +22,12 @@ namespace Game.System
         public void Start()
         {
             InitControllers();
+        }
+
+        public void Tick()
+        {
+            foreach (var controller in _controllers)
+                controller.Value.Tick();
         }
 
         protected abstract void CreateControllers();

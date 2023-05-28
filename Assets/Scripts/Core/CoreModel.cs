@@ -5,26 +5,31 @@ namespace Game
     public interface ICoreModel
     {
         ILevelLoadingModel LevelLoadingModel { get; }
-        ILevelModel LevelModel { get; }
         IPlayerModel PlayerModel { get; }
+        ILevelModel LevelModel { get; }
+        IInputModel InputModel { get; }
     }
 
     public class CoreModel : ICoreModel
     {
         public readonly LevelLoadingModel LevelLoading;
-        public readonly LevelModel Level;
         public readonly PlayerModel Player;
+        public readonly LevelModel Level;
+        public readonly InputModel Input;
 
         ILevelLoadingModel ICoreModel.LevelLoadingModel => LevelLoading;
-        ILevelModel ICoreModel.LevelModel => Level;
         IPlayerModel ICoreModel.PlayerModel => Player;
+        ILevelModel ICoreModel.LevelModel => Level;
+        IInputModel ICoreModel.InputModel => Input;
 
 
-        public CoreModel(LevelLoadingModel levelLoadingModel, LevelModel levelModel, PlayerModel playerModel)
+        public CoreModel(LevelLoadingModel levelLoadingModel, PlayerModel playerModel,
+            LevelModel levelModel, InputModel inputModel)
         {
             LevelLoading = levelLoadingModel;
-            Level = levelModel;
             Player = playerModel;
+            Level = levelModel;
+            Input = inputModel;
         }
     }
 }

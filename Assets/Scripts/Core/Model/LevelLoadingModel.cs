@@ -9,7 +9,7 @@ namespace Game.Core.Model
 {
     public interface ILevelLoadingModel
     {
-        Subject<Unit> LevelLoaded { get; }
+        IObservable<Unit> LevelLoaded { get; }
         void RegisterSceneActivationLocker(ReactiveProperty<bool> locker);
     }
 
@@ -20,17 +20,15 @@ namespace Game.Core.Model
         private SceneInstance _loadedScene;
         private List<ReactiveProperty<bool>> _sceneActivationLockers = new List<ReactiveProperty<bool>>();
 
-        public IObservable<Unit> InitialSpawnComplete;
+        public IObservable<Unit> InitialSpawnComplete = new Subject<Unit>();
 
         public LevelLoadingModel(LevelConfig levelConfig)
         {
             Config = levelConfig;
-
-            InitialSpawnComplete = new Subject<Unit>();
-            LevelLoaded = new Subject<Unit>();
         }
 
-        public Subject<Unit> LevelLoaded { get; }
+        public Subject<Unit> LevelLoaded = new Subject<Unit>();
+        IObservable<Unit> ILevelLoadingModel.LevelLoaded => LevelLoaded.AsUnitObservable();
 
         void ILevelLoadingModel.RegisterSceneActivationLocker(ReactiveProperty<bool> locker)
         {

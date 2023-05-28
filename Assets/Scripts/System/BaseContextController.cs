@@ -24,6 +24,10 @@ namespace Game.System
             return ContextManager.GetController<T>();
         }
 
+        public virtual void Tick()
+        {
+        }
+
         protected virtual void SelfInit()
         {
         }

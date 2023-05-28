@@ -6,6 +6,7 @@ using Game.System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace Game.Core.Controllers
 {
@@ -16,7 +17,7 @@ namespace Game.Core.Controllers
 
         private GameObject _playerPrefab;
 
-        private List<AsyncOperationHandle> _loadedResources = new List<AsyncOperationHandle>();
+        private List<AsyncOperationHandle> _loadedAddressablesResources = new List<AsyncOperationHandle>();
 
         public AssetsController(ContextManager contextManager) : base(contextManager)
         {
@@ -38,6 +39,13 @@ namespace Game.Core.Controllers
             Debug.LogError($"Road prefab with type {type} not exist in preloaded assets");
             prefab = null;
             return false;
+        }
+
+        public AsyncOperationHandle<SceneInstance> LoadSceneAsync(string sceneName)
+        {
+            var handle = Addressables.LoadSceneAsync(sceneName);
+            handle.AddTo(_loadedAddressablesResources);
+            return handle;
         }
 
         public async Task LoadPlayerPrefab()
@@ -65,7 +73,7 @@ namespace Game.Core.Controllers
         private async Task<GameObject> LoadPrefabFromAddressables(AssetReference assetReference)
         {
             var handle = assetReference.LoadAssetAsync<GameObject>();
-            handle.AddTo(_loadedResources);
+            handle.AddTo(_loadedAddressablesResources);
             await handle.Task;
             return handle.Result;
         }
@@ -73,7 +81,7 @@ namespace Game.Core.Controllers
         public override void Dispose()
         {
             base.Dispose();
-            foreach (var asyncOperationHandle in _loadedResources)
+            foreach (var asyncOperationHandle in _loadedAddressablesResources)
             {
                 Addressables.Release(asyncOperationHandle);
             }

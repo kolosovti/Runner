@@ -1,21 +1,18 @@
-using System.Collections.Generic;
 using Game.Core.Model;
-using Game.Helpers;
 using Game.System;
 using UniRx;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
-namespace Game
+namespace Game.Core.Controllers
 {
     public class LevelLoadingController : BaseContextController
     {
         private readonly LevelLoadingModel _levelLoadingModel;
-        private readonly List<AsyncOperationHandle> _loadedResources = new List<AsyncOperationHandle>();
 
-        public LevelLoadingController(LevelLoadingModel levelLoadingModel, ContextManager contextManager) : base(contextManager)
+        public LevelLoadingController(LevelLoadingModel levelLoadingModel, ContextManager contextManager) : base(
+            contextManager)
         {
             _levelLoadingModel = levelLoadingModel;
         }
@@ -31,8 +28,7 @@ namespace Game
 
         private void LoadLevel()
         {
-            var handle = Addressables.LoadSceneAsync(_levelLoadingModel.Config.SceneName);
-            handle.AddTo(_loadedResources);
+            var handle = GetController<AssetsController>().LoadSceneAsync(_levelLoadingModel.Config.SceneName);
             handle.Completed += OnSceneLoaded;
         }
 
