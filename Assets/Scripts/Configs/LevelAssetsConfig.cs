@@ -19,8 +19,10 @@ namespace Game.Configs
     public class LevelAssetsConfig : ScriptableObject
     {
         [SerializeField] private List<RoadPrefab> _roadPrefabs;
+        [SerializeField] private AssetReference _playerPrefabReference;
 
         public List<RoadPrefab> RoadPrefabs => _roadPrefabs;
+        public AssetReference PlayerPrefabReference => _playerPrefabReference;
     }
 
     [Serializable]

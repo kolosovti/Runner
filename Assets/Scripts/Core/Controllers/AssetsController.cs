@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Configs;
-using Game.Core.Road;
 using Game.Helpers;
 using Game.System;
 using UnityEngine;
@@ -12,8 +11,10 @@ namespace Game.Core.Controllers
 {
     public class AssetsController : BaseContextController
     {
-        private Dictionary<RoadBlockType, BaseRoadObject> _preloadedRoadPrefabs =
-            new Dictionary<RoadBlockType, BaseRoadObject>();
+        private Dictionary<RoadBlockType, GameObject> _roadPrefabs =
+            new Dictionary<RoadBlockType, GameObject>();
+
+        private GameObject _playerPrefab;
 
         private List<AsyncOperationHandle> _loadedResources = new List<AsyncOperationHandle>();
 
@@ -21,11 +22,16 @@ namespace Game.Core.Controllers
         {
         }
 
-        public bool TryGetPreloadedRoadPrefabByType(RoadBlockType type, out BaseRoadObject prefab)
+        public GameObject GetPlayerPrefab()
         {
-            if (_preloadedRoadPrefabs.ContainsKey(type))
+            return _playerPrefab;
+        }
+
+        public bool TryGetRoadPrefabByType(RoadBlockType type, out GameObject prefab)
+        {
+            if (_roadPrefabs.ContainsKey(type))
             {
-                prefab = _preloadedRoadPrefabs[type];
+                prefab = _roadPrefabs[type];
                 return true;
             }
 
@@ -34,23 +40,24 @@ namespace Game.Core.Controllers
             return false;
         }
 
-        public async Task LoadAssetsFromAddressables()
+        public async Task LoadPlayerPrefab()
         {
-            await PreloadRoadPrefabs();
+            var player = await LoadPrefabFromAddressables(Services.Configs.LevelAssetsConfig.PlayerPrefabReference);
+            _playerPrefab = player;
         }
 
-        private async Task PreloadRoadPrefabs()
+        public async Task LoadRoadPrefabs()
         {
             foreach (var roadPrefab in Services.Configs.LevelAssetsConfig.RoadPrefabs)
             {
-                if (_preloadedRoadPrefabs.ContainsKey(roadPrefab.Type))
+                if (_roadPrefabs.ContainsKey(roadPrefab.Type))
                 {
                     Debug.LogError($"Double entry road type {roadPrefab.Type} in prefabs List");
                 }
                 else
                 {
                     var loadedPrefab = await LoadPrefabFromAddressables(roadPrefab.PrefabReference);
-                    _preloadedRoadPrefabs.Add(roadPrefab.Type, loadedPrefab.GetComponent<BaseRoadObject>());
+                    _roadPrefabs.Add(roadPrefab.Type, loadedPrefab);
                 }
             }
         }

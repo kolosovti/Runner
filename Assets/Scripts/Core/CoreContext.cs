@@ -6,17 +6,22 @@ namespace Game.Core
 {
     public class CoreContext : ContextManager
     {
-        private LevelModel _levelModel;
+        private CoreModel _coreModel;
 
-        public CoreContext(LevelModel levelModel)
+        public CoreContext(LevelLoadingModel levelLoadingModel, LevelModel levelModel, PlayerModel playerModel)
         {
-            _levelModel = levelModel;
+            _coreModel = new CoreModel(
+                levelLoadingModel,
+                levelModel,
+                playerModel);
         }
 
         protected override void CreateControllers()
         {
+            CreateController(new LevelLoadingController(_coreModel.LevelLoading, this));
             CreateController(new AssetsController(this));
-            CreateController(new LevelController(_levelModel, this));
+            CreateController(new LevelController(_coreModel.LevelLoading, _coreModel.Level, this));
+            CreateController(new PlayerController(_coreModel.LevelLoading, _coreModel.Player, this));
         }
     }
 }

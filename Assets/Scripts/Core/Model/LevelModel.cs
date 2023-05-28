@@ -16,6 +16,7 @@ namespace Game.Core.Model
             _config = levelConfig;
         }
 
+        public LevelConfig Config => _config;
         LevelConfig ILevelModel.Config => _config;
     }
 }

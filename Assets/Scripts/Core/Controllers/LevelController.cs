@@ -3,6 +3,7 @@ using Game.Core.Model;
 using Game.Core.Road;
 using Game.Helpers;
 using Game.System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -12,43 +13,31 @@ namespace Game.Core.Controllers
 {
     public class LevelController : BaseContextController
     {
+        private readonly ILevelLoadingModel _levelLoadingModel;
         private readonly ILevelModel _levelModel;
-
-        private SceneInstance _loadedScene;
+        
         private List<AsyncOperationHandle> _loadedResources = new List<AsyncOperationHandle>();
 
-        public LevelController(ILevelModel levelModel, ContextManager contextManager) : base(contextManager)
+        public LevelController(ILevelLoadingModel levelLoadingModel, ILevelModel levelModel, ContextManager contextManager) 
+            : base(contextManager)
         {
+            _levelLoadingModel = levelLoadingModel;
             _levelModel = levelModel;
+
+            _levelLoadingModel.LevelLoaded.First().Subscribe(x => OnSceneLoaded()).AddTo(_subscriptions);
         }
 
-        protected override void SelfInit()
+        //TODO: можно вынести предзагрузку ассетов в конструктор, подписываться на событие в AssetsModel и по нему спавнить объекты
+        private async void OnSceneLoaded()
         {
-            base.SelfInit();
-            LoadLevel();
-        }
+            var levelActivationLocker = new ReactiveProperty<bool>();
+            _levelLoadingModel.RegisterSceneActivationLocker(levelActivationLocker);
 
-        private void LoadLevel()
-        {
-            var handle = Addressables.LoadSceneAsync(_levelModel.Config.SceneName);
-            handle.AddTo(_loadedResources);
-            handle.Completed += OnSceneLoaded;
-        }
+            var assetsController = GetController<AssetsController>();
+            await assetsController.LoadRoadPrefabs();
+            SpawnLevel();
 
-        private async void OnSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
-        {
-            if (obj.Status == AsyncOperationStatus.Succeeded)
-            {
-                _loadedScene = obj.Result;
-                var assetsController = GetController<AssetsController>();
-                await assetsController.LoadAssetsFromAddressables();
-                SpawnLevel();
-                _loadedScene.ActivateAsync();
-            }
-            else
-            {
-                Debug.LogError($"Failed to load scene {_levelModel.Config.SceneName}");
-            }
+            levelActivationLocker.Value = true;
         }
 
         private void SpawnLevel()
@@ -61,15 +50,19 @@ namespace Game.Core.Controllers
             BaseRoadObject previousBlock = null;
             foreach (var roadBlockType in _levelModel.Config.RoadSpawnOrder)
             {
-                if (assetsController.TryGetPreloadedRoadPrefabByType(roadBlockType, out var prefab))
+                if (assetsController.TryGetRoadPrefabByType(roadBlockType, out var prefab))
                 {
-                    var roadBlock = Object.Instantiate(prefab, root.transform);
+                    var roadBlock = Object.Instantiate(prefab, root.transform).GetComponent<BaseRoadObject>();
                     if (previousBlock != null)
                     {
                         roadBlock.transform.rotation = previousBlock.transform.rotation * previousBlock.GetEndPointAdditionalRotation();
 
                         roadBlock.transform.position = previousBlock.GetEndPointWorldSpacePosition() - 
                                                        roadBlock.transform.rotation * roadBlock.GetStartPointLocalPosition();
+                    }
+                    else
+                    {
+                        roadBlock.transform.position = _levelModel.Config.RoadInitialPosition;
                     }
 
                     previousBlock = roadBlock;

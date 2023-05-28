@@ -10,8 +10,10 @@ namespace Game.Core
 
         private void Start()
         {
+            var levelLoadingModel = new LevelLoadingModel(Services.Configs.LevelConfig);
             var levelModel = new LevelModel(Services.Configs.LevelConfig);
-            _coreContext = new CoreContext(levelModel);
+            var playerModel = new PlayerModel();
+            _coreContext = new CoreContext(levelLoadingModel, levelModel, playerModel);
             _coreContext.Init();
             _coreContext.Start();
         }

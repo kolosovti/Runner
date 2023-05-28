@@ -19,3 +19,8 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  _playerPrefabReference:
+    m_AssetGUID: 6dc42ad68cc8044df837a14ff82a63dc
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
