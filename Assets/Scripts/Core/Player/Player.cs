@@ -12,6 +12,8 @@ namespace Game.Core
 
         private PlayerController _playerController;
 
+        public Rigidbody Rigidbody => _rigidbody;
+
         public void SetController(PlayerController playerController)
         {
             _playerController = playerController;

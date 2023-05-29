@@ -23,5 +23,10 @@ namespace Game.Core
         {
             _coreContext.Tick();
         }
+
+        private void FixedUpdate()
+        {
+            _coreContext.FixedTick();
+        }
     }
 }

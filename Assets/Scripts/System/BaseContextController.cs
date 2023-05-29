@@ -28,6 +28,9 @@ namespace Game.System
         {
         }
 
+        public virtual void FixedTick()
+        {
+        }
         protected virtual void SelfInit()
         {
         }

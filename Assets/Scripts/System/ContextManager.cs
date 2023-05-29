@@ -30,6 +30,12 @@ namespace Game.System
                 controller.Value.Tick();
         }
 
+        public void FixedTick()
+        {
+            foreach (var controller in _controllers)
+                controller.Value.FixedTick();
+        }
+
         protected abstract void CreateControllers();
 
         private void InitControllers()
