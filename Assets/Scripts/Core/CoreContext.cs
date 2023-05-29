@@ -24,7 +24,8 @@ namespace Game.Core
             CreateController(new AssetsController(this));
             CreateController(new LevelController(_coreModel.LevelLoading, _coreModel.Level, this));
             CreateController(new InputController(_coreModel.Input, this));
-            CreateController(new PlayerController(_coreModel.LevelLoading, _coreModel.Input, _coreModel.Player, this));
+            CreateController(new PlayerController(_coreModel.LevelLoading, _coreModel.Level, 
+                _coreModel.Input, _coreModel.Player, this));
         }
     }
 }

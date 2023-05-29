@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game.Core.Controllers;
+using Game.Core.Road;
 using UnityEngine;
 
 namespace Game.Core
@@ -11,6 +12,7 @@ namespace Game.Core
         [SerializeField] private float _force;
 
         private PlayerController _playerController;
+        private BaseRoadObject _baseRoadObject;
 
         public Rigidbody Rigidbody => _rigidbody;
 
@@ -29,7 +31,7 @@ namespace Game.Core
             //TODO: extract tag to global variables
             if (collision.gameObject.CompareTag("Road"))
             {
-                _playerController.PlayerGrounded();
+                _baseRoadObject = collision.gameObject.GetComponent<BaseRoadObject>();
             }
         }
     }

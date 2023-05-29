@@ -5,18 +5,15 @@ using Game.Helpers;
 using Game.System;
 using UniRx;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace Game.Core.Controllers
 {
     public class LevelController : BaseContextController
     {
         private readonly ILevelLoadingModel _levelLoadingModel;
-        private readonly ILevelModel _levelModel;
+        private readonly LevelModel _levelModel;
 
-        public LevelController(ILevelLoadingModel levelLoadingModel, ILevelModel levelModel, ContextManager contextManager) 
+        public LevelController(ILevelLoadingModel levelLoadingModel, LevelModel levelModel, ContextManager contextManager) 
             : base(contextManager)
         {
             _levelLoadingModel = levelLoadingModel;
@@ -25,7 +22,7 @@ namespace Game.Core.Controllers
             _levelLoadingModel.LevelLoaded.First().Subscribe(x => OnSceneLoaded()).AddTo(_subscriptions);
         }
 
-        //TODO: можно вынести предзагрузку ассетов в конструктор, подписываться на событие в AssetsModel и по нему спавнить объекты
+        //TODO: можно вынести предзагрузку ассетов в конструктор, подписываться на событие окончания предзагрузки в AssetsModel и по нему спавнить объекты
         private async void OnSceneLoaded()
         {
             var levelActivationLocker = new ReactiveProperty<bool>();
@@ -36,6 +33,7 @@ namespace Game.Core.Controllers
             SpawnLevel();
 
             levelActivationLocker.Value = true;
+            _levelModel.LevelSpawned();
         }
 
         private void SpawnLevel()
@@ -64,6 +62,7 @@ namespace Game.Core.Controllers
                     }
 
                     previousBlock = roadBlock;
+                    _levelModel.AddRoadBlockInSequence(roadBlock);
                 }
             }
         }
