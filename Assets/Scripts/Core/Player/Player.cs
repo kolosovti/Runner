@@ -9,10 +9,8 @@ namespace Game.Core
     public class Player : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private float _force;
 
         private PlayerController _playerController;
-        private BaseRoadObject _baseRoadObject;
 
         public Rigidbody Rigidbody => _rigidbody;
 
@@ -21,17 +19,11 @@ namespace Game.Core
             _playerController = playerController;
         }
 
-        public void Jump()
+        private void OnTriggerStay(Collider other)
         {
-            _rigidbody.AddForce(Vector3.up * _force);
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            //TODO: extract tag to global variables
-            if (collision.gameObject.CompareTag("Road"))
+            if (other.CompareTag("Road"))
             {
-                _baseRoadObject = collision.gameObject.GetComponent<BaseRoadObject>();
+                _playerController.PlayerGrounded();
             }
         }
     }

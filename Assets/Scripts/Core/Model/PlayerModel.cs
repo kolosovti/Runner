@@ -7,9 +7,9 @@ namespace Game.Core.Model
     public interface IPlayerModel
     {
         Player Player { get; }
-        IObservable<int> Health { get; }
-        IObservable<int> JumpsCount { get; }
-        IObservable<bool> IsGrounded { get; }
+        IReadOnlyReactiveProperty<int> Health { get; }
+        IReadOnlyReactiveProperty<int> JumpsCount { get; }
+        IReadOnlyReactiveProperty<bool> IsGrounded { get; }
     }
 
     //TODO: передавать ассет референс на префаб игрока, чтобы PlayerController мог подзагружать только нужный скин игрока из аддрессаблов
@@ -21,9 +21,9 @@ namespace Game.Core.Model
         public ReactiveProperty<bool> IsGrounded = new ReactiveProperty<bool>();
 
         Player IPlayerModel.Player => Player;
-        IObservable<int> IPlayerModel.Health => Health;
-        IObservable<int> IPlayerModel.JumpsCount => JumpsCount;
-        IObservable<bool> IPlayerModel.IsGrounded => IsGrounded;
+        IReadOnlyReactiveProperty<int> IPlayerModel.Health => Health;
+        IReadOnlyReactiveProperty<int> IPlayerModel.JumpsCount => JumpsCount;
+        IReadOnlyReactiveProperty<bool> IPlayerModel.IsGrounded => IsGrounded;
 
         public void SetPlayer(Player player)
         {

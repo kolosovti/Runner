@@ -14,7 +14,7 @@ namespace Game.Core.Controllers
         private readonly PlayerModel _playerModel;
         private readonly IInputModel _inputModel;
 
-        private IMoveStrategy _playerMovementStrategy;
+        private BaseMoveStrategy _playerMovementStrategy;
 
         public PlayerController(ILevelLoadingModel levelLoadingModel, ILevelModel levelModel,
             IInputModel inputModel, PlayerModel playerModel, ContextManager contextManager)
@@ -86,9 +86,11 @@ namespace Game.Core.Controllers
             );
 
             _playerMovementStrategy = new BaseMoveStrategy(
+                _playerModel,
                 _playerModel.Player.Rigidbody,
                 Services.Configs.PlayerMovementConfig,
-                pathSettings);
+                pathSettings,
+                _playerMovementStrategy?.YForce ?? 0f);
 
             _playerMovementStrategy.PathComplete.First().Subscribe(x => TrySetNextPlayerMovementStrategy(blockIndex + 1)).AddTo(_subscriptions);
         }
@@ -106,7 +108,7 @@ namespace Game.Core.Controllers
         {
             if (_playerModel.JumpsCount.Value < Services.Configs.PlayerConfig.MaxJumpCount)
             {
-                _playerModel.Player.Jump();
+                _playerMovementStrategy.Jump();
                 _playerModel.OnJump();
             }
         }
