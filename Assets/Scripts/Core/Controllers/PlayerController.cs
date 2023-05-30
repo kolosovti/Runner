@@ -41,7 +41,7 @@ namespace Game.Core.Controllers
             _inputModel.Jump.Subscribe(x => OnJumpInputReceived()).AddTo(_subscriptions);
             _levelModel.LevelSpawned.First().Subscribe(x => OnLevelSpawned()).AddTo(_subscriptions);
         }
-        
+
         private void OnSceneLoaded()
         {
             var levelActivationLocker = new ReactiveProperty<bool>();
@@ -70,7 +70,7 @@ namespace Game.Core.Controllers
 
             //TODO: extract to camera controller, get from mono-provider without camera.main
             var camera = Camera.main;
-            
+
             camera.transform.SetParent(_playerModel.Player.transform);
             camera.transform.localPosition = Services.Configs.PlayerCameraConfig.PlayerCameraPosition;
             camera.transform.localRotation = Quaternion.Euler(Services.Configs.PlayerCameraConfig.PlayerCameraRotation);
@@ -99,7 +99,8 @@ namespace Game.Core.Controllers
                 pathSettings,
                 _playerMovementStrategy?.YForce ?? 0f);
 
-            _playerMovementStrategy.PathComplete.First().Subscribe(x => TrySetNextPlayerMovementStrategy(blockIndex + 1)).AddTo(_subscriptions);
+            _playerMovementStrategy.PathComplete.First()
+                .Subscribe(x => TrySetNextPlayerMovementStrategy(blockIndex + 1)).AddTo(_subscriptions);
         }
 
         public override void FixedTick()
