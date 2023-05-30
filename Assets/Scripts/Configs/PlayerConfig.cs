@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Configs
@@ -9,8 +7,9 @@ namespace Game.Configs
     {
         [SerializeField] private Vector3 _jumpForce;
         [SerializeField] private int _maxJumpCount;
-
-        public Vector3 JumpForce => _jumpForce;
+        [SerializeField] private float _maxHealth;
+        
         public int MaxJumpCount => _maxJumpCount;
+        public float MaxHealth => _maxHealth;
     }
 }

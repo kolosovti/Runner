@@ -1,6 +1,7 @@
 using Game.Core.Model;
 using Game.Core.Stats;
 using Game.System;
+using Game.UI.Window;
 using UniRx;
 
 namespace Game.Core.Controllers
@@ -8,12 +9,14 @@ namespace Game.Core.Controllers
     public class StatisticsController : BaseContextController
     {
         private readonly ILevelModel _levelModel;
+        private readonly IGameplayModel _gameplayModel;
         private readonly StatisticsModel _statisticsModel;
 
-        public StatisticsController(ILevelModel levelModel, StatisticsModel statisticsModel, 
-            ContextManager contextManager) : base(contextManager)
+        public StatisticsController(ILevelModel levelModel, IGameplayModel gameplayModel,
+            StatisticsModel statisticsModel, ContextManager contextManager) : base(contextManager)
         {
             _levelModel = levelModel;
+            _gameplayModel = gameplayModel;
             _statisticsModel = statisticsModel;
         }
 
@@ -44,6 +47,26 @@ namespace Game.Core.Controllers
             {
                 _statisticsModel.Statistics.Add(statistics.Type, statistics.Amount);
             }
+        }
+
+        public StatsData GetStatsData()
+        {
+            var data = new StatsData();
+            data.HolePassedCount = GetStatisticsValue(StatsType.HoleComplete);
+            data.LongHolePassedCount = GetStatisticsValue(StatsType.LongHoleComplete);
+            data.SawPassedCount = GetStatisticsValue(StatsType.SawComplete);
+            data.FencePassedCount = GetStatisticsValue(StatsType.FenceComplete);
+            return data;
+        }
+
+        private float GetStatisticsValue(StatsType type)
+        {
+            if (_statisticsModel.Statistics.TryGetValue(type, out var value))
+            {
+                return value;
+            }
+
+            return 0f;
         }
     }
 }

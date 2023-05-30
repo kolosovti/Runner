@@ -19,11 +19,11 @@ namespace Game.Core.Model
         private Subject<Unit> _levelSpawned = new Subject<Unit>();
 
         public LevelConfig Config => _config;
-        public List<BaseRoad> _roadObjectsSequence = new List<BaseRoad>();
+        public List<BaseRoad> RoadObjectsSequence = new List<BaseRoad>();
 
         LevelConfig ILevelModel.Config => _config;
         IObservable<Unit> ILevelModel.LevelSpawned => _levelSpawned;
-        IReadOnlyList<BaseRoad> ILevelModel.RoadObjectSequence => _roadObjectsSequence;
+        IReadOnlyList<BaseRoad> ILevelModel.RoadObjectSequence => RoadObjectsSequence;
 
         public LevelModel(LevelConfig levelConfig)
         {
@@ -32,7 +32,7 @@ namespace Game.Core.Model
 
         public void AddRoadBlockInSequence(BaseRoad road)
         {
-            _roadObjectsSequence.Add(road);
+            RoadObjectsSequence.Add(road);
         }
 
         public void LevelSpawned()

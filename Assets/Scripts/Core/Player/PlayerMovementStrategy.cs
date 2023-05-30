@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Core.Movement
 {
-    public class BaseMoveStrategy : IMoveStrategy, IJumpStrategy
+    public class PlayerMovementStrategy : MockMovementStrategy
     {
         private readonly IPlayerModel _playerModel;
         private readonly Rigidbody _rigidbody;
@@ -21,10 +21,8 @@ namespace Game.Core.Movement
         private float _yForce;
 
         public float YForce => _yForce;
-        public Subject<Unit> PathComplete = new Subject<Unit>();
-        IObservable<Unit> IMoveStrategy.PathComplete => PathComplete;
 
-        public BaseMoveStrategy(IPlayerModel playerModel, Rigidbody rigidbody, MovementConfig movementConfig,
+        public PlayerMovementStrategy(IPlayerModel playerModel, Rigidbody rigidbody, MovementConfig movementConfig,
             BezierSegmentSettings path, float savedYForce = 0f)
         {
             _playerModel = playerModel;
@@ -38,7 +36,7 @@ namespace Game.Core.Movement
             _previousPosition = _startPoint;
         }
 
-        public void Jump()
+        public override void Jump()
         {
             if (_yForce > 0)
             {
@@ -51,7 +49,7 @@ namespace Game.Core.Movement
         }
 
         //TODO: add interpolation for smooth movement
-        public virtual void FixedTick()
+        public override void FixedTick()
         {
             float time = _pathLenght / _movementConfig.RunnerSpeed;
 

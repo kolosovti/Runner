@@ -16,16 +16,19 @@ namespace Game.Core.Controllers
             new Dictionary<RoadBlockType, GameObject>();
 
         private GameObject _playerPrefab;
+        private GameObject _winWindowPrefab;
+        private GameObject _deathWindowPrefab;
+        private GameObject _healthViewPrefab;
+
+        public GameObject PlayerPrefab => _playerPrefab;
+        public GameObject WinWindowPrefab => _winWindowPrefab;
+        public GameObject DeathWindowPrefab => _deathWindowPrefab;
+        public GameObject HealthViewPrefab => _healthViewPrefab;
 
         private List<AsyncOperationHandle> _loadedAddressablesResources = new List<AsyncOperationHandle>();
 
         public AssetsController(ContextManager contextManager) : base(contextManager)
         {
-        }
-
-        public GameObject GetPlayerPrefab()
-        {
-            return _playerPrefab;
         }
 
         public bool TryGetRoadPrefabByType(RoadBlockType type, out GameObject prefab)
@@ -52,6 +55,24 @@ namespace Game.Core.Controllers
         {
             var player = await LoadPrefabFromAddressables(Services.Configs.LevelAssetsConfig.PlayerPrefabReference);
             _playerPrefab = player;
+        }
+
+        public async Task LoadWinWindowPrefab()
+        {
+            var window = await LoadPrefabFromAddressables(Services.Configs.LevelAssetsConfig.WinWindowReference);
+            _winWindowPrefab = window;
+        }
+
+        public async Task LoadDeathWindowPrefab()
+        {
+            var window = await LoadPrefabFromAddressables(Services.Configs.LevelAssetsConfig.DeathWindowReference);
+            _deathWindowPrefab = window;
+        }
+
+        public async Task LoadHealthViewPrefab()
+        {
+            var view = await LoadPrefabFromAddressables(Services.Configs.LevelAssetsConfig.HealthViewReference);
+            _healthViewPrefab = view;
         }
 
         public async Task LoadRoadPrefabs()

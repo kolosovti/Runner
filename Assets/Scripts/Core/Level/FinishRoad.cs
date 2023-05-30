@@ -15,7 +15,7 @@ namespace Game
 
         private void Start()
         {
-            _finishCollider.OnTriggerEnterAsObservable().First().Subscribe(FinishColliderEnter)
+            _finishCollider.OnTriggerEnterAsObservable().Subscribe(FinishColliderEnter)
                 .AddTo(_subscriptions);
         }
 
@@ -24,6 +24,7 @@ namespace Game
             if (other.CompareTag(Tags.Player))
             {
                 _finish.OnNext(Unit.Default);
+                _subscriptions.Dispose();
             }
         }
     }

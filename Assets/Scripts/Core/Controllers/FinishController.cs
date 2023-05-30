@@ -1,20 +1,25 @@
+using Game.Core;
+using Game.Core.Controllers;
 using Game.Core.Level;
 using Game.Core.Model;
 using Game.System;
+using Game.UI.Window;
 using UniRx;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
     public class FinishController : BaseContextController
     {
         private readonly ILevelModel _levelModel;
-        private readonly FinishModel _finishModel;
+        private readonly GameplayModel _gameplayModel;
 
-        public FinishController(ILevelModel levelModel, FinishModel finishModel,
+        public FinishController(ILevelModel levelModel, GameplayModel gameplayModel,
             ContextManager contextManager) : base(contextManager)
         {
             _levelModel = levelModel;
-            _finishModel = finishModel;
+            _gameplayModel = gameplayModel;
         }
 
         public override void ConnectController()
@@ -22,6 +27,9 @@ namespace Game
             base.ConnectController();
 
             _levelModel.LevelSpawned.First().Subscribe(x => SubscribeToLevelStats()).AddTo(_subscriptions);
+            _gameplayModel.Finish.First().Subscribe(x => ShowFinishWindow()).AddTo(_subscriptions);
+
+            PreloadWinWindow();
         }
 
         private void SubscribeToLevelStats()
@@ -33,9 +41,28 @@ namespace Game
             }
         }
 
+        private async void PreloadWinWindow()
+        {
+            await GetController<AssetsController>().LoadWinWindowPrefab();
+        }
+
         private void HandleFinish()
         {
-            _finishModel.Finish.Value = true;
+            _gameplayModel.Finish.OnNext(Unit.Default);
+        }
+
+        private void ShowFinishWindow()
+        {
+            var winWindowPrefab = GetController<AssetsController>().WinWindowPrefab;
+            var winWindow = Object.Instantiate(winWindowPrefab).GetComponent<WinWindow>();
+            winWindow.Show(GetController<StatisticsController>().GetStatsData());
+            winWindow.OnNextLevelButtonClick.First().Subscribe(x => ReloadLevel()).AddTo(_subscriptions);
+        }
+
+        private void ReloadLevel()
+        {
+            ContextManager.Dispose();
+            GameEntryPoint.Instance.LoadCoreContext();
         }
     }
 }

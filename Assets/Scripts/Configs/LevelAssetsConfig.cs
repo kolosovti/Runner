@@ -22,9 +22,15 @@ namespace Game.Configs
     {
         [SerializeField] private List<RoadPrefab> _roadPrefabs;
         [SerializeField] private AssetReference _playerPrefabReference;
+        [SerializeField] private AssetReference _winWindowReference;
+        [SerializeField] private AssetReference _deathWindowReference;
+        [SerializeField] private AssetReference _healthViewReference;
 
         public List<RoadPrefab> RoadPrefabs => _roadPrefabs;
         public AssetReference PlayerPrefabReference => _playerPrefabReference;
+        public AssetReference WinWindowReference => _winWindowReference;
+        public AssetReference DeathWindowReference => _deathWindowReference;
+        public AssetReference HealthViewReference => _healthViewReference;
     }
 
     [Serializable]

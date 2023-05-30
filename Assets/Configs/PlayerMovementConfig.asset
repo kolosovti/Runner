@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerMovementConfig
   m_EditorClassIdentifier: 
   _jumpForce: 0.15
-  _runnerSpeed: 1
+  _runnerSpeed: 4
   _gravityForce: 0.3

@@ -32,16 +32,32 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
-  - m_GUID: 560b4ce9b9598c3448a49845361192f4
-    m_Address: Assets/Prefabs/Road/RoadWithBigHole.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 10f8b7a8693831a449ca967f5febeaa4
     m_Address: Assets/Prefabs/Road/RoadWithSaw.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 560b4ce9b9598c3448a49845361192f4
+    m_Address: Assets/Prefabs/Road/RoadWithBigHole.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d1f55efedd7e068409849196d86e1a8e
+    m_Address: Assets/Prefabs/Road/FinishRoad.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 04827891e3b8c1743a8dee61ba9e0005
+    m_Address: Assets/Prefabs/Road/RoadWithFence.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 884060689831b9f4aa4140ddaf652dcd
+    m_Address: Assets/Prefabs/Road/RoadWithSmallHole.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 036570a2a73c3504e8d818aaa136a34d
     m_Address: Assets/Prefabs/Road/DirectRoad.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 18e26e3c7b1cdf2418a64894c32044d7
+    m_Address: Assets/Prefabs/WinWindow.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 0ca24468c6f0bf64188e32ea798a0f2d
@@ -52,8 +68,16 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Road/TurhRightRoad.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: d1f55efedd7e068409849196d86e1a8e
-    m_Address: Assets/Prefabs/Road/FinishRoad.prefab
+  - m_GUID: 2eeff1bbe891fec48b46cd42f94da549
+    m_Address: Assets/Prefabs/DeathWindow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 925aeee8af0c92040ac6fb3198178c88
+    m_Address: Assets/Prefabs/StatsView.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5d97dd31111e116479610082aae7a2d4
+    m_Address: Assets/Prefabs/HeatlhBar.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Configs;
 using UniRx;
+using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace Game.Core.Model

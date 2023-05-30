@@ -1,6 +1,5 @@
 using Game.Core.Model;
 using Game.Helpers;
-using UnityEngine;
 
 namespace Game.Core
 {
@@ -10,12 +9,17 @@ namespace Game.Core
 
         private void Start()
         {
+            LoadCoreContext();
+        }
+
+        public void LoadCoreContext()
+        {
             var levelLoadingModel = new LevelLoadingModel(Services.Configs.LevelConfig);
             var levelModel = new LevelModel(Services.Configs.LevelConfig);
             var playerModel = new PlayerModel();
             var inputModel = new InputModel();
             var statsModel = new StatisticsModel();
-            var finishModel = new FinishModel();
+            var finishModel = new GameplayModel();
             _coreContext = new CoreContext(levelLoadingModel, statsModel, playerModel, finishModel, levelModel, inputModel);
             _coreContext.Init();
             _coreContext.Start();

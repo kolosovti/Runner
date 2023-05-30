@@ -12,7 +12,7 @@ namespace Game.Core
             LevelLoadingModel levelLoadingModel,
             StatisticsModel statisticsModel,
             PlayerModel playerModel,
-            FinishModel finishModel,
+            GameplayModel gameplayModel,
             LevelModel levelModel,
             InputModel inputModel)
         {
@@ -20,7 +20,7 @@ namespace Game.Core
                 levelLoadingModel,
                 statisticsModel,
                 playerModel,
-                finishModel,
+                gameplayModel,
                 levelModel,
                 inputModel);
         }
@@ -31,10 +31,12 @@ namespace Game.Core
             CreateController(new AssetsController(this));
             CreateController(new LevelController(_coreModel.LevelLoading, _coreModel.Level, this));
             CreateController(new InputController(_coreModel.Input, this));
-            CreateController(new PlayerController(_coreModel.LevelLoading, _coreModel.Finish, _coreModel.Player,
-                _coreModel.Level, _coreModel.Input,  this));
-            CreateController(new StatisticsController(_coreModel.Level, _coreModel.Statistics, this));
-            CreateController(new FinishController(_coreModel.Level, _coreModel.Finish, this));
+            CreateController(new PlayerController(_coreModel.LevelLoading, _coreModel.Gameplay,
+                _coreModel.Player, _coreModel.Level, _coreModel.Input,  this));
+            CreateController(new StatisticsController(_coreModel.Level, _coreModel.Gameplay, 
+                _coreModel.Statistics, this));
+            CreateController(new FinishController(_coreModel.Level, _coreModel.Gameplay, this));
+            CreateController(new DeathController(_coreModel.Player, _coreModel.Gameplay, this));
         }
     }
 }

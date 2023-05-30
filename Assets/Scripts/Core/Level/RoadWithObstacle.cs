@@ -17,23 +17,25 @@ namespace Game.Core.Level
         private Subject<ObstacleType> _obstacleEnter = new Subject<ObstacleType>();
         private Subject<ObstacleType> _obstacleExit = new Subject<ObstacleType>();
 
+        private bool _obstacleFailed = false;
+
         public IObservable<StatisticsContainer> Complete => _obstacleComplete;
         public IObservable<ObstacleType> ObstacleEnter => _obstacleEnter;
         public IObservable<ObstacleType> ObstacleExit => _obstacleExit;
 
         private void Start()
         {
-            _obstacleCompleteCollider.OnTriggerEnterAsObservable().First().Subscribe(ObstacleCompleteColliderEnter)
+            _obstacleCompleteCollider.OnTriggerEnterAsObservable().Subscribe(ObstacleCompleteColliderEnter)
                 .AddTo(_subscriptions);
-            _obstacleCollider.OnTriggerEnterAsObservable().First().Subscribe(ObstacleColliderEnter)
+            _obstacleCollider.OnTriggerEnterAsObservable().Subscribe(ObstacleColliderEnter)
                 .AddTo(_subscriptions);
-            _obstacleCollider.OnTriggerExitAsObservable().First().Subscribe(ObstacleColliderExit)
+            _obstacleCollider.OnTriggerExitAsObservable().Subscribe(ObstacleColliderExit)
                 .AddTo(_subscriptions);
         }
 
         protected virtual void ObstacleCompleteColliderEnter(Collider other)
         {
-            if (other.CompareTag(Tags.Player))
+            if (!_obstacleFailed && other.CompareTag(Tags.Player))
             {
                 _obstacleComplete.OnNext(new StatisticsContainer(_statsType, 1));
             }
@@ -43,6 +45,7 @@ namespace Game.Core.Level
         {
             if (other.CompareTag(Tags.Player))
             {
+                _obstacleFailed = true;
                 _obstacleEnter.OnNext(_obstacleType);
             }
         }

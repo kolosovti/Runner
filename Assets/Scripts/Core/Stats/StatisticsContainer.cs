@@ -4,7 +4,7 @@ namespace Game.Core.Stats
     {
         Mock = 0,
         HoleComplete = 1,
-        BigHoleComplete = 2,
+        LongHoleComplete = 2,
         SawComplete = 3,
         FenceComplete = 4
     }

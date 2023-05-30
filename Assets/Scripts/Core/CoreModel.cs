@@ -7,7 +7,7 @@ namespace Game
         ILevelLoadingModel LevelLoadingModel { get; }
         IStatisticsModel StatisticsModel { get; }
         IPlayerModel PlayerModel { get; }
-        IFinishModel FinishModel { get; }
+        IGameplayModel GameplayModel { get; }
         ILevelModel LevelModel { get; }
         IInputModel InputModel { get; }
     }
@@ -17,14 +17,14 @@ namespace Game
         public readonly LevelLoadingModel LevelLoading;
         public readonly StatisticsModel Statistics;
         public readonly PlayerModel Player;
-        public readonly FinishModel Finish;
+        public readonly GameplayModel Gameplay;
         public readonly LevelModel Level;
         public readonly InputModel Input;
 
         ILevelLoadingModel ICoreModel.LevelLoadingModel => LevelLoading;
         IStatisticsModel ICoreModel.StatisticsModel => Statistics;
         IPlayerModel ICoreModel.PlayerModel => Player;
-        IFinishModel ICoreModel.FinishModel => Finish;
+        IGameplayModel ICoreModel.GameplayModel => Gameplay;
         ILevelModel ICoreModel.LevelModel => Level;
         IInputModel ICoreModel.InputModel => Input;
 
@@ -32,14 +32,14 @@ namespace Game
             LevelLoadingModel levelLoadingModel,
             StatisticsModel statsModel,
             PlayerModel playerModel,
-            FinishModel finishModel,
+            GameplayModel gameplayModel,
             LevelModel levelModel, 
             InputModel inputModel)
         {
             LevelLoading = levelLoadingModel;
             Statistics = statsModel;
             Player = playerModel;
-            Finish = finishModel;
+            Gameplay = gameplayModel;
             Level = levelModel;
             Input = inputModel;
         }

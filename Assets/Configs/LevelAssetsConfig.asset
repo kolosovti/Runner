@@ -49,8 +49,35 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - Type: 3
+    PrefabReference:
+      m_AssetGUID: 04827891e3b8c1743a8dee61ba9e0005
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Type: 1
+    PrefabReference:
+      m_AssetGUID: 884060689831b9f4aa4140ddaf652dcd
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   _playerPrefabReference:
     m_AssetGUID: 6dc42ad68cc8044df837a14ff82a63dc
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _winWindowReference:
+    m_AssetGUID: 18e26e3c7b1cdf2418a64894c32044d7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _deathWindowReference:
+    m_AssetGUID: 2eeff1bbe891fec48b46cd42f94da549
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _healthViewReference:
+    m_AssetGUID: 5d97dd31111e116479610082aae7a2d4
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
