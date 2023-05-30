@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Game.Configs;
 using Game.Core.Model;
 using Game.Core.Level;
 using Game.Helpers;
 using Game.System;
 using UniRx;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game.Core.Controllers
 {
@@ -44,7 +48,10 @@ namespace Game.Core.Controllers
 
             var assetsController = GetController<AssetsController>();
             BaseRoad previousBlock = null;
-            foreach (var roadBlockType in _levelModel.Config.RoadSpawnOrder)
+
+            // Раскомментить если нужна дорога из конфига
+            //foreach (var roadBlockType in _levelModel.Config.RoadSpawnOrder)
+            foreach (var roadBlockType in GetRandomRoad())
             {
                 if (assetsController.TryGetRoadPrefabByType(roadBlockType, out var prefab))
                 {
@@ -65,6 +72,32 @@ namespace Game.Core.Controllers
                     _levelModel.AddRoadBlockInSequence(roadBlock);
                 }
             }
+        }
+
+        private RoadBlockType[] GetRandomRoad(int lenght = 10)
+        {
+            var road = new RoadBlockType[lenght];
+            road[0] = RoadBlockType.Simple;
+            road[lenght - 1] = RoadBlockType.Finish;
+            for (var i = 1; i < road.Length - 2; i++)
+            {
+                road[i] = RollRandomRoadBlockWithoutFinish();
+            }
+            return road;
+        }
+
+        //TODO: написать нормальный рандомайзер
+        private RoadBlockType RollRandomRoadBlockWithoutFinish()
+        {
+            var road = RoadBlockType.Finish;
+            while (road == RoadBlockType.Finish)
+            {
+                var values = Enum.GetValues(typeof(RoadBlockType)).Cast<RoadBlockType>().ToList();
+                var item = UnityEngine.Random.Range(1, values.Count - 1);
+                road = (RoadBlockType)values[item];
+            }
+
+            return road;
         }
     }
 }
