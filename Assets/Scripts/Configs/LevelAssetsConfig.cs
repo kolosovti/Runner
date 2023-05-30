@@ -11,8 +11,10 @@ namespace Game.Configs
         Hole,
         LongHole,
         Fence,
+        Saw,
         TurnRight,
-        TurnLeft
+        TurnLeft,
+        Finish
     }
 
     [CreateAssetMenu(fileName = "LevelAssetsConfig", menuName = "Configs/LevelAssetsConfig")]

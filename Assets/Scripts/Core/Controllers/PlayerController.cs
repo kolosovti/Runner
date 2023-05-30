@@ -10,18 +10,25 @@ namespace Game.Core.Controllers
     public class PlayerController : BaseContextController
     {
         private readonly ILevelLoadingModel _levelLoadingModel;
-        private readonly ILevelModel _levelModel;
+        private readonly IFinishModel _finishModel;
         private readonly PlayerModel _playerModel;
+        private readonly ILevelModel _levelModel;
         private readonly IInputModel _inputModel;
 
         private BaseMoveStrategy _playerMovementStrategy;
 
-        public PlayerController(ILevelLoadingModel levelLoadingModel, ILevelModel levelModel,
-            IInputModel inputModel, PlayerModel playerModel, ContextManager contextManager)
+        public PlayerController(
+            ILevelLoadingModel levelLoadingModel,
+            IFinishModel finishModel,
+            PlayerModel playerModel,
+            ILevelModel levelModel,
+            IInputModel inputModel,
+            ContextManager contextManager)
             : base(contextManager)
         {
             _levelLoadingModel = levelLoadingModel;
             _playerModel = playerModel;
+            _finishModel = finishModel;
             _inputModel = inputModel;
             _levelModel = levelModel;
         }
@@ -34,7 +41,7 @@ namespace Game.Core.Controllers
             _inputModel.Jump.Subscribe(x => OnJumpInputReceived()).AddTo(_subscriptions);
             _levelModel.LevelSpawned.First().Subscribe(x => OnLevelSpawned()).AddTo(_subscriptions);
         }
-
+        
         private void OnSceneLoaded()
         {
             var levelActivationLocker = new ReactiveProperty<bool>();
@@ -98,7 +105,9 @@ namespace Game.Core.Controllers
         public override void FixedTick()
         {
             base.FixedTick();
-            if (_playerMovementStrategy != null)
+
+            //TODO: создать стратегию движения на финише, этот код не очень
+            if (_playerMovementStrategy != null && _finishModel.Finish.Value != true)
             {
                 _playerMovementStrategy.FixedTick();
             }
@@ -115,7 +124,13 @@ namespace Game.Core.Controllers
 
         public void PlayerGrounded()
         {
-            _playerModel.OnGrounded();
+            _playerModel.JumpsCount.Value = 0;
+            _playerModel.IsGrounded.Value = true;
+        }
+
+        public void PlayerFall()
+        {
+            _playerModel.IsGrounded.Value = false;
         }
     }
 }

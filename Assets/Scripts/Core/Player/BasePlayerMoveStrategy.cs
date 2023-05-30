@@ -21,7 +21,6 @@ namespace Game.Core.Movement
         private float _yForce;
 
         public float YForce => _yForce;
-
         public Subject<Unit> PathComplete = new Subject<Unit>();
         IObservable<Unit> IMoveStrategy.PathComplete => PathComplete;
 
@@ -61,7 +60,7 @@ namespace Game.Core.Movement
                 float t = _elapsedTime / time;
                 Vector3 position = Bezier.GetPoint(_path, t);
 
-                if (_yForce < 0)
+                if (_yForce <= 0)
                 {
                     var absYForce = Math.Abs(_yForce);
                     float distanceToGround = _yForce;
@@ -70,13 +69,13 @@ namespace Game.Core.Movement
                         distanceToGround = hit.distance;
                     }
 
-                    if (distanceToGround < -absYForce)
+                    if (distanceToGround > -absYForce)
                     {
                         _yForce = -distanceToGround;
                     }
                 }
 
-                var yPos = _rigidbody.position.y + _yForce > 0f ? _rigidbody.position.y + _yForce : 0f;
+                var yPos = _rigidbody.position.y + _yForce;
                 _rigidbody.position = new Vector3(position.x, yPos, position.z);
 
                 if (position != _previousPosition)

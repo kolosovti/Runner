@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3b75fc3641ba448a18b5319d1ac336, type: 3}
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
-  _playerCameraPosition: {x: 0, y: 0, z: 0}
-  _playerCameraRotation: {x: 0, y: 0, z: 0}
+  _playerCameraPosition: {x: 0, y: 3, z: -2.5}
+  _playerCameraRotation: {x: 25, y: 0, z: 0}

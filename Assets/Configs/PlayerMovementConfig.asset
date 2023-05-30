@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5d66d6d703ec14dbe4fe1eab041a8d, type: 3}
   m_Name: PlayerMovementConfig
   m_EditorClassIdentifier: 
-  _runnerSpeed: 10
+  _jumpForce: 0.15
+  _runnerSpeed: 1
+  _gravityForce: 0.3

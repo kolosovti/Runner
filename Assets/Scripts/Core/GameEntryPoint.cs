@@ -14,7 +14,9 @@ namespace Game.Core
             var levelModel = new LevelModel(Services.Configs.LevelConfig);
             var playerModel = new PlayerModel();
             var inputModel = new InputModel();
-            _coreContext = new CoreContext(levelLoadingModel, levelModel, playerModel, inputModel);
+            var statsModel = new StatisticsModel();
+            var finishModel = new FinishModel();
+            _coreContext = new CoreContext(levelLoadingModel, statsModel, playerModel, finishModel, levelModel, inputModel);
             _coreContext.Init();
             _coreContext.Start();
         }

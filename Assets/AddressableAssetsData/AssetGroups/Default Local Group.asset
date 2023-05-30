@@ -32,11 +32,30 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
-  - m_GUID: f99a9c480965c5649a717d65d3cc18d0
-    m_Address: Assets/Prefabs/Plane.prefab
+  - m_GUID: 560b4ce9b9598c3448a49845361192f4
+    m_Address: Assets/Prefabs/Road/RoadWithBigHole.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
+    m_SerializedLabels: []
+  - m_GUID: 10f8b7a8693831a449ca967f5febeaa4
+    m_Address: Assets/Prefabs/Road/RoadWithSaw.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 036570a2a73c3504e8d818aaa136a34d
+    m_Address: Assets/Prefabs/Road/DirectRoad.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0ca24468c6f0bf64188e32ea798a0f2d
+    m_Address: Assets/Prefabs/Road/TurhLeftRoad.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f99a9c480965c5649a717d65d3cc18d0
+    m_Address: Assets/Prefabs/Road/TurhRightRoad.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d1f55efedd7e068409849196d86e1a8e
+    m_Address: Assets/Prefabs/Road/FinishRoad.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5432fee0815647f4b93b100d0999bab2, type: 2}
   m_SchemaSet:

@@ -8,12 +8,19 @@ namespace Game.Core
     {
         private CoreModel _coreModel;
 
-        public CoreContext(LevelLoadingModel levelLoadingModel, LevelModel levelModel, 
-            PlayerModel playerModel, InputModel inputModel)
+        public CoreContext(
+            LevelLoadingModel levelLoadingModel,
+            StatisticsModel statisticsModel,
+            PlayerModel playerModel,
+            FinishModel finishModel,
+            LevelModel levelModel,
+            InputModel inputModel)
         {
             _coreModel = new CoreModel(
                 levelLoadingModel,
+                statisticsModel,
                 playerModel,
+                finishModel,
                 levelModel,
                 inputModel);
         }
@@ -24,8 +31,10 @@ namespace Game.Core
             CreateController(new AssetsController(this));
             CreateController(new LevelController(_coreModel.LevelLoading, _coreModel.Level, this));
             CreateController(new InputController(_coreModel.Input, this));
-            CreateController(new PlayerController(_coreModel.LevelLoading, _coreModel.Level, 
-                _coreModel.Input, _coreModel.Player, this));
+            CreateController(new PlayerController(_coreModel.LevelLoading, _coreModel.Finish, _coreModel.Player,
+                _coreModel.Level, _coreModel.Input,  this));
+            CreateController(new StatisticsController(_coreModel.Level, _coreModel.Statistics, this));
+            CreateController(new FinishController(_coreModel.Level, _coreModel.Finish, this));
         }
     }
 }

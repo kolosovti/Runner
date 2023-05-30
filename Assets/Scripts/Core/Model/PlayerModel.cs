@@ -35,11 +35,5 @@ namespace Game.Core.Model
             JumpsCount.Value++;
             IsGrounded.Value = false;
         }
-
-        public void OnGrounded()
-        {
-            JumpsCount.Value = 0;
-            IsGrounded.Value = true;
-        }
     }
 }

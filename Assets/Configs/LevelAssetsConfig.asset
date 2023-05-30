@@ -15,7 +15,37 @@ MonoBehaviour:
   _roadPrefabs:
   - Type: 0
     PrefabReference:
+      m_AssetGUID: 036570a2a73c3504e8d818aaa136a34d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Type: 2
+    PrefabReference:
+      m_AssetGUID: 560b4ce9b9598c3448a49845361192f4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Type: 4
+    PrefabReference:
+      m_AssetGUID: 10f8b7a8693831a449ca967f5febeaa4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Type: 6
+    PrefabReference:
+      m_AssetGUID: 0ca24468c6f0bf64188e32ea798a0f2d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Type: 5
+    PrefabReference:
       m_AssetGUID: f99a9c480965c5649a717d65d3cc18d0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Type: 7
+    PrefabReference:
+      m_AssetGUID: d1f55efedd7e068409849196d86e1a8e
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

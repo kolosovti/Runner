@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Game.Core.Model;
-using Game.Core.Road;
+using Game.Core.Level;
 using Game.Helpers;
 using Game.System;
 using UniRx;
@@ -43,12 +43,12 @@ namespace Game.Core.Controllers
             root.transform.position = Vector3.zero;
 
             var assetsController = GetController<AssetsController>();
-            BaseRoadObject previousBlock = null;
+            BaseRoad previousBlock = null;
             foreach (var roadBlockType in _levelModel.Config.RoadSpawnOrder)
             {
                 if (assetsController.TryGetRoadPrefabByType(roadBlockType, out var prefab))
                 {
-                    var roadBlock = Object.Instantiate(prefab, root.transform).GetComponent<BaseRoadObject>();
+                    var roadBlock = Object.Instantiate(prefab, root.transform).GetComponent<BaseRoad>();
                     if (previousBlock != null)
                     {
                         roadBlock.transform.rotation = previousBlock.transform.rotation * previousBlock.GetEndPointAdditionalRotation();

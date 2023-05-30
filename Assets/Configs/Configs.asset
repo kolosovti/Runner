@@ -15,3 +15,7 @@ MonoBehaviour:
   _levelConfig: {fileID: 11400000, guid: 85f9cfe1c47a6b34896387737964c6c5, type: 2}
   _levelAssetsConfig: {fileID: 11400000, guid: ab456a913029ac442a343b593e4ab718, type: 2}
   _playerConfig: {fileID: 11400000, guid: a26d187ca5766aa43be4e6f55afc82de, type: 2}
+  _playerMovementConfig: {fileID: 11400000, guid: 91f586f76d4f53942a0b287929f13961,
+    type: 2}
+  _playerCameraConfig: {fileID: 11400000, guid: d6cc4cd40372b0d428e90f3b93ed8b44,
+    type: 2}

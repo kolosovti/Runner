@@ -1,10 +1,13 @@
+using UniRx;
 using UnityEditor;
 using UnityEngine;
 
-namespace Game.Core.Road
+namespace Game.Core.Level
 {
-    public class BaseRoadObject : MonoBehaviour, IRoadObject
+    public class BaseRoad : MonoBehaviour
     {
+        protected readonly CompositeDisposable _subscriptions = new CompositeDisposable();
+
         [SerializeField] private Vector3 _startPointPosition;
         [SerializeField] private Vector3 _endPointPosition;
         [SerializeField] private Vector3 _endPointAdditionalRotation;
@@ -61,6 +64,11 @@ namespace Game.Core.Road
             Gizmos.DrawCube(endPoint - transform.rotation * (_endPointTangent / 2), Vector3.one * 0.1f);
             Gizmos.DrawLine(startPoint + transform.rotation * (_startPointTangent / 2), startPoint - transform.rotation * (_startPointTangent / 2));
             Gizmos.DrawLine(endPoint + transform.rotation * (_endPointTangent / 2), endPoint - transform.rotation * (_endPointTangent / 2));
+        }
+
+        protected virtual void OnDestroy()
+        {
+            _subscriptions.Dispose();
         }
     }
 }

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using Game.Core.Controllers;
-using Game.Core.Road;
 using UnityEngine;
 
 namespace Game.Core
@@ -21,9 +18,17 @@ namespace Game.Core
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag("Road"))
+            if (other.CompareTag(Tags.Road))
             {
                 _playerController.PlayerGrounded();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag(Tags.Road))
+            {
+                _playerController.PlayerFall();
             }
         }
     }
