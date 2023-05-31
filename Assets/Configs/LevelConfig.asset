@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
   _sceneName: LevelScene
-  _roadSpawnOrder: 0000000001000000020000000500000004000000030000000600000007000000
+  _roadSpawnOrder: 00000000010000000500000004000000030000000600000007000000
   _roadInitialPosition: {x: 0, y: 0, z: 0}
   _playerInitialPosition: {x: 0, y: 0, z: 0}

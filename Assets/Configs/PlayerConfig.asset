@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpForce: {x: 0, y: 250, z: 0}
   _maxJumpCount: 2
-  _maxHealth: 0
+  _maxHealth: 100
